@@ -58,7 +58,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 withAWS(region:'us-east-1', credentials:'aws') {
-                    s3Upload(file:'build', bucket="give-and-take-${env.BRANCH_NAME}", path="/")
+                    s3Upload(file: 'build', bucket: "give-and-take-${env.BRANCH_NAME}", path: "/")
                 }
             }
         }
