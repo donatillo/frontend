@@ -30,6 +30,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
+                        sh "cd terraform && terraform init && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -out=tfplan"
                         timeout(time: 10, unit: 'MINUTES') {
                             input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
                         }
@@ -42,7 +43,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'cd terraform && terraform apply -lock=false -input=false -var "env=' + env.BRANCH_NAME + " -var "access_key=$USER" -var "secret_key=$PASS" tfplan'
+                    sh "cd terraform && terraform apply -lock=false -input=false -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" tfplan"
                 }
             }
         }
