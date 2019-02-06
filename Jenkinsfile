@@ -10,10 +10,9 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Install NPM') {
             agent { docker 'node:8-alpine' }
             steps {
-                sh 'npm install'
                 sh 'npm run build'
             }
         }
@@ -31,9 +30,9 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
                         sh "cd terraform && terraform init && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -out=tfplan"
-                        timeout(time: 10, unit: 'MINUTES') {
-                            input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
-                        }
+                        // timeout(time: 10, unit: 'MINUTES') {
+                        //    input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
+                        // }
                     }
                 }
             }
@@ -45,6 +44,13 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh "cd terraform && terraform apply -lock=false -input=false tfplan"
                 }
+            }
+        }
+
+        stage('Build') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm run build'
             }
         }
 
