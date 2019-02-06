@@ -14,6 +14,7 @@ pipeline {
             agent { docker 'node:8-alpine' }
             steps {
                 sh 'npm install'
+                sh 'npm run build'
             }
         }
 
@@ -47,19 +48,12 @@ pipeline {
             }
         }
 
-        stage('Deploy devl') {
-            agent { docker 'node:8-alpine' }
-            when { branch 'devl' }
+        stage('Deploy') {
+            agent { label 'master' }
             steps {
-                sh 'npm run build'
-                echo 'Deploy not implemented.'
-            }
-        }
-
-        stage('Deploy master') {
-            when { branch 'master' }
-            steps {
-                echo 'Deploy not implemented.'
+                withAWS(credentials:'aws') {
+                    s3Upload(file:'build', bucket="give-and-take-${env.BRANCH_NAME}", path="/")
+                }
             }
         }
 
