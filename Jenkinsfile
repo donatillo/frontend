@@ -29,7 +29,6 @@ pipeline {
             when { branch 'devl' }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "cd terraform && terraform init && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -out=tfplan"
                     script {
                         timeout(time: 10, unit: 'MINUTES') {
                             input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
