@@ -38,6 +38,7 @@ resource "aws_s3_bucket" "frontend" {
 # CLOUDFRONT
 #
 
+/*
 locals {
   s3_origin_id = "myS3Origin"
 }
@@ -83,5 +84,14 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
     }
 
 }
+*/
+
+# TODO - custom domain
+# TODO - register certificate
+# TODO - register CNAME on R53
+# TODO - register A record on R53
+# TODO - register AAAA record on R53
+# TODO - backend (start on Jenkins)
+# TODO - automatically get new commits
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
