@@ -57,6 +57,7 @@ pipeline {
         stage('Deploy') {
             agent { label 'master' }
             steps {
+                sh "echo ${params.website.domain}"
                 withAWS(region:'us-east-1', credentials:'aws') {
                     s3Upload(file: 'build', bucket: "give-and-take-${env.BRANCH_NAME}")
                 }
