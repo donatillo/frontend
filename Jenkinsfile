@@ -68,7 +68,7 @@ pipeline {
         stage('Debug') {
             agent { label 'master' }
             steps {
-                sh "echo ${params.website.domain}"
+                sh "echo ${env.website.domain}"
             }
         }
 
