@@ -25,6 +25,6 @@ resource "aws_route53_record" "ipv6" {
         zone_id     = "${aws_cloudfront_distribution.frontend_cf.hosted_zone_id}"
         evaluate_target_health = true
     }
-}
+} 
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
