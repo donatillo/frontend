@@ -47,7 +47,6 @@ resource "aws_s3_bucket" "frontend" {
 # CLOUDFRONT
 #
 
-/*
 locals {
   s3_origin_id = "myS3Origin"
 }
