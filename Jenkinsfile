@@ -13,7 +13,7 @@ pipeline {
         stage('Install NPM') {
             agent { docker 'node:8-alpine' }
             steps {
-                sh 'npm run build'
+                sh 'npm install'
             }
         }
 
