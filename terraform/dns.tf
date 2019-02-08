@@ -4,7 +4,7 @@ data "aws_route53_zone" "primary" {
 }
 
 // IPv4
-resource "aws_route53_record" "ipv4" {
+resource "aws_route53_record" "ipv4_${var.env}" {
     zone_id         = "${data.aws_route53_zone.primary.zone_id}"
     name            = "${var.subdomain}.${var.domain}"
     type            = "A"
@@ -16,7 +16,7 @@ resource "aws_route53_record" "ipv4" {
 }
 
 // IPv6
-resource "aws_route53_record" "ipv6" {
+resource "aws_route53_record" "ipv6_${var.env}" {
     zone_id         = "${data.aws_route53_zone.primary.zone_id}"
     name            = "${var.subdomain}.${var.domain}"
     type            = "AAAA"

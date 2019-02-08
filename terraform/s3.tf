@@ -5,7 +5,7 @@ data "template_file" "policy" {
     }
 }
 
-resource "aws_s3_bucket" "frontend" {
+resource "aws_s3_bucket" "frontend_${var.env}" {
     bucket      = "${var.domain}-${var.env}"
     acl         = "public-read"
     policy      = "${data.template_file.policy.rendered}"
