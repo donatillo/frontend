@@ -9,8 +9,8 @@ resource "aws_route53_record" "ipv4_${var.env}" {
     name            = "${var.subdomain}.${var.domain}"
     type            = "A"
     alias {
-        name        = "${aws_cloudfront_distribution.frontend_cf.domain_name}"
-        zone_id     = "${aws_cloudfront_distribution.frontend_cf.hosted_zone_id}"
+        name        = "${aws_cloudfront_distribution.frontend_cf_${var.env}.domain_name}"
+        zone_id     = "${aws_cloudfront_distribution.frontend_cf_${var.env}.hosted_zone_id}"
         evaluate_target_health = true
     }
 }
@@ -21,8 +21,8 @@ resource "aws_route53_record" "ipv6_${var.env}" {
     name            = "${var.subdomain}.${var.domain}"
     type            = "AAAA"
     alias {
-        name        = "${aws_cloudfront_distribution.frontend_cf.domain_name}"
-        zone_id     = "${aws_cloudfront_distribution.frontend_cf.hosted_zone_id}"
+        name        = "${aws_cloudfront_distribution.frontend_cf_${var.env}.domain_name}"
+        zone_id     = "${aws_cloudfront_distribution.frontend_cf_${var.env}.hosted_zone_id}"
         evaluate_target_health = true
     }
 } 

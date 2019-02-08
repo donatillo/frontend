@@ -32,11 +32,11 @@ pipeline {
                         sh """
                             cd terraform 
                             terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS'
-                            terraform plan -out=tfplan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -var \"subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}\"
+                            terraform plan -no-color -out=tfplan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -var \"subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}\"
                         """
-                        // timeout(time: 10, unit: 'MINUTES') {
-                        //    input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
-                        // }
+                        timeout(time: 10, unit: 'MINUTES') {
+                            input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
+                        }
                     }
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "cd terraform && terraform apply -lock=false -input=false tfplan"
+                    sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
                 }
             }
         }
