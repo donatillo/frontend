@@ -2,7 +2,7 @@ locals {
   s3_origin_id = "myS3Origin"
 }
 
-resource "aws_cloudfront_distribution" "frontend_cf_${var.env}" {
+resource "aws_cloudfront_distribution" "frontend_cf" {
     origin {
         domain_name         = "${var.domain}-${var.env}.s3.amazonaws.com"
         origin_id           = "frontend-${var.env}-s3"
