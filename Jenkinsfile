@@ -68,7 +68,6 @@ pipeline {
         stage('Debug') {
             agent { label 'master' }
             steps {
-                sh "source /etc/profile"
                 sh "echo ${env.MY_DOMAIN}"
             }
         }
