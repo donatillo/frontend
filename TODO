@@ -1,0 +1,6 @@
+- custom domain
+- register certificate
+- register CNAME on R53
+- register A record on R53
+- register AAAA record on R53
+- automatically get new commits

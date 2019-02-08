@@ -1,52 +1,3 @@
-#
-# VARIABLES
-#
-
-variable "access_key" {}
-variable "secret_key" {}
-variable "env" {}
-variable "domain" {}
-variable "region" {
-    default = "us-east-1"
-}
-
-# 
-# SETUP
-#
-
-provider "aws" {
-    access_key      = "${var.access_key}"
-    secret_key      = "${var.secret_key}"
-    region          = "${var.region}"
-}
-
-# 
-# S3 bucket
-# 
-
-data "template_file" "policy" {
-	template 	= "${file("policy.json")}"
-	vars {
-		bucket  = "${var.domain}-${var.env}"
-	}
-}
-
-
-resource "aws_s3_bucket" "frontend" {
-    bucket      = "${var.domain}-${var.env}"
-    acl         = "public-read"
-    policy      = "${data.template_file.policy.rendered}"
-
-    website {
-        index_document = "index.html"
-        error_document = "index.html"
-    }
-}
-
-#
-# CLOUDFRONT
-#
-
 locals {
   s3_origin_id = "myS3Origin"
 }
@@ -98,12 +49,5 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
     }
 
 }
-
-# TODO - custom domain
-# TODO - register certificate
-# TODO - register CNAME on R53
-# TODO - register A record on R53
-# TODO - register AAAA record on R53
-# TODO - automatically get new commits
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
