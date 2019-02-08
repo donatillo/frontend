@@ -54,20 +54,20 @@ locals {
 
 resource "aws_cloudfront_distribution" "frontend_cf" {
     origin {
-        domain_name         = "give-and-take-${var.env}.s3.amazonaws.com"
-        origin_id           = "give-and-take-${var.env}-s3"
+        domain_name         = "frontend-${var.env}.s3.amazonaws.com"
+        origin_id           = "frontend-${var.env}-s3"
     }
 
     enabled                 = true
     is_ipv6_enabled         = true
     default_root_object     = "index.html"
 
-    aliases = ["${var.env}.give-and-take.tk"]
+    aliases = ["${var.env}.${var.domain}"]
 
     default_cache_behaviour {
         allowed_methods     = ["GET", "HEAD", "OPTIONS"]
         cached_methods      = ["GET", "HEAD", "OPTIONS"]
-        target_origin_id    = "give-and-take-${var.env}-s3"
+        target_origin_id    = "frontend-${var.env}-s3"
 
         forwarded_values {
             query_string    = false
@@ -93,14 +93,12 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
     }
 
 }
-*/
 
 # TODO - custom domain
 # TODO - register certificate
 # TODO - register CNAME on R53
 # TODO - register A record on R53
 # TODO - register AAAA record on R53
-# TODO - backend (start on Jenkins)
 # TODO - automatically get new commits
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
