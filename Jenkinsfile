@@ -10,22 +10,6 @@ pipeline {
 
     stages {
 
-        /*
-        stage('Install NPM') {
-            agent { docker 'node:8-alpine' }
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Test') {
-            agent { docker 'node:8-alpine' }
-            steps {
-                sh 'npm test'
-            }
-        }
-        */
-
         stage('Plan infrastructure') {
             agent { label 'master' }
             steps {
@@ -54,7 +38,20 @@ pipeline {
             }
         }
 
-        /*
+        stage('Install NPM') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm test'
+            }
+        }
+
         stage('Build') {
             agent { docker 'node:8-alpine' }
             steps {
@@ -70,7 +67,6 @@ pipeline {
                 }
             }
         }
-        */
 
     }
 }
