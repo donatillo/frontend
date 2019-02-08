@@ -63,7 +63,7 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
 
     aliases = ["${var.env}.${var.domain}"]
 
-    default_cache_behaviour {
+    default_cache_behavior {
         allowed_methods     = ["GET", "HEAD", "OPTIONS"]
         cached_methods      = ["GET", "HEAD", "OPTIONS"]
         target_origin_id    = "frontend-${var.env}-s3"
@@ -86,6 +86,8 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
     }
 
     price_class                 = "PriceClass_200"
+
+    restrictions {}
 
     viewer_certificate {
         cloudfront_default_certificate = true
