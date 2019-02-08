@@ -29,7 +29,11 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
-                        sh "cd terraform && terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -out=tfplan"
+                        sh """
+                            cd terraform 
+                            terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS'
+                            terraform plan -out=tfplan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -var \"subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}\"
+                        """
                         // timeout(time: 10, unit: 'MINUTES') {
                         //    input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
                         // }
@@ -65,5 +69,6 @@ pipeline {
 
     }
 }
+
 
 // vim:st=4:sts=4:sw=4:expandtab:syntax=groovy

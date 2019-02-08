@@ -6,6 +6,8 @@ variable "env" {}
 
 variable "domain" {}
 
+variable "subdomain" {}
+
 variable "region" {
     default = "us-east-1"
 }

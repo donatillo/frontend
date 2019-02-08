@@ -6,7 +6,7 @@ data "aws_route53_zone" "primary" {
 // IPv4
 resource "aws_route53_record" "ipv4" {
     zone_id         = "${data.aws_route53_zone.primary.zone_id}"
-    name            = "${var.env}.${var.domain}"
+    name            = "${var.subdomain}.${var.domain}"
     type            = "A"
     alias {
         name        = "${aws_cloudfront_distribution.frontend_cf.domain_name}"
@@ -18,7 +18,7 @@ resource "aws_route53_record" "ipv4" {
 // IPv6
 resource "aws_route53_record" "ipv6" {
     zone_id         = "${data.aws_route53_zone.primary.zone_id}"
-    name            = "${var.env}.${var.domain}"
+    name            = "${var.subdomain}.${var.domain}"
     type            = "AAAA"
     alias {
         name        = "${aws_cloudfront_distribution.frontend_cf.domain_name}"
