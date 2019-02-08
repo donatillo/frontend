@@ -29,7 +29,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
-                        sh "cd terraform && terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -out=tfplan"
+                        sh "cd terraform && terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' && terraform plan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -out=tfplan"
                         // timeout(time: 10, unit: 'MINUTES') {
                         //    input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
                         // }

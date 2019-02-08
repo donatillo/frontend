@@ -5,6 +5,7 @@
 variable "access_key" {}
 variable "secret_key" {}
 variable "env" {}
+variable "domain" {}
 variable "region" {
     default = "us-east-1"
 }
@@ -24,7 +25,7 @@ provider "aws" {
 # 
 
 resource "aws_s3_bucket" "frontend" {
-    bucket      = "give-and-take-${var.env}"
+    bucket      = "${var.domain}-${var.env}"
     acl         = "public-read"
     policy      = "${file("policy-${var.env}.json")}"
 
