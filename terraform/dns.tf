@@ -4,7 +4,7 @@ data "aws_route53_zone" "primary" {
 }
 
 // IPv4
-resource "aws_route53_record" "jenkins-dns" {
+resource "aws_route53_record" "ipv4" {
     zone_id         = "${aws_route53_zone.primary.zone_id}"
     name            = "${var.env}.${var.domain}"
     type            = "A"
@@ -17,7 +17,7 @@ resource "aws_route53_record" "jenkins-dns" {
 }
 
 // IPv6
-resource "aws_route53_record" "jenkins-dns" {
+resource "aws_route53_record" "ipv6" {
     zone_id         = "${aws_route53_zone.primary.zone_id}"
     name            = "${var.env}.${var.domain}"
     type            = "AAAA"
