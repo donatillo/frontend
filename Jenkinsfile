@@ -10,6 +10,27 @@ pipeline {
 
     stages {
 
+        stage('Install NPM') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Build') {
+            agent { docker 'node:8-alpine' }
+            steps {
+                sh 'npm run build'
+            }
+        }
+
         stage('Plan infrastructure') {
             agent { label 'master' }
             steps {
@@ -34,27 +55,6 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
                 }
-            }
-        }
-
-        stage('Install NPM') {
-            agent { docker 'node:8-alpine' }
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Test') {
-            agent { docker 'node:8-alpine' }
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Build') {
-            agent { docker 'node:8-alpine' }
-            steps {
-                sh 'npm run build'
             }
         }
 
