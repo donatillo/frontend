@@ -54,9 +54,7 @@ pipeline {
         stage('Apply infrastrcuture') {
             agent { label 'master' }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
-                }
+                sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
             }
         }
 
