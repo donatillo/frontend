@@ -49,6 +49,12 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
         ssl_support_method      = "sni-only"
     }
 
+    tags {
+        Name        = "frontend"
+        Creator     = "frontend"
+        Environment = "${var.env}"
+        Description = "Cloudfront distribution for frontend"
+    }
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf

@@ -5,6 +5,13 @@ resource "aws_acm_certificate" "cert" {
     lifecycle {
         create_before_destroy = true
     }
+
+    tags {
+        Name        = "cloudfront_cert"
+        Creator     = "frontend"
+        Environment = "${var.env}"
+        Description = "Certificate for cloudfront HTTPS"
+    }
 }
 
 resource "aws_route53_record" "cert_validation" {
