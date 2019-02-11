@@ -6,7 +6,7 @@ data "template_file" "policy" {
 }
 
 resource "aws_s3_bucket" "frontend" {
-    bucket      = "${var.domain}-${var.env}"
+    bucket      = "${var.basename}-${var.env}"
     acl         = "public-read"
     policy      = "${data.template_file.policy.rendered}"
 
@@ -18,6 +18,7 @@ resource "aws_s3_bucket" "frontend" {
     tags {
         Name        = "Bucket for frontend static content"
         Creator     = "frontend"
+        Environment = "${var.env}"
     }
 }
 

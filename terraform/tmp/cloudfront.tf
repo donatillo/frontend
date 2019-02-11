@@ -4,7 +4,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "frontend_cf" {
     origin {
-        domain_name         = "${var.domain}-${var.env}.s3.amazonaws.com"
+        domain_name         = "${var.basename}-${var.env}.s3.amazonaws.com"
         origin_id           = "frontend-${var.env}-s3"
     }
 
