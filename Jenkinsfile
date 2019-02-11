@@ -10,6 +10,7 @@ pipeline {
 
     stages {
 
+        /*
         stage('Install NPM') {
             agent { docker 'node:8-alpine' }
             steps {
@@ -30,7 +31,9 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        */
 
+        /*
         stage('Plan infrastructure') {
             agent { label 'master' }
             steps {
@@ -38,7 +41,7 @@ pipeline {
                     script {
                         sh """
                             cd terraform 
-                            terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform-${BRANCH_NAME}'
+                            terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform -backend-config='key=${BRANCH_NAME}'
                             terraform plan -no-color -out=tfplan -var \"env=${env.BRANCH_NAME}\" -var \"access_key=$USER\" -var \"secret_key=$PASS\" -var \"domain=${env.MY_DOMAIN}\" -var \"subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}\"
                         """
                         if (env.BRANCH_NAME == "master") {
@@ -66,6 +69,7 @@ pipeline {
                 }
             }
         }
+        */
 
     }
 }
