@@ -1,7 +1,7 @@
 data "template_file" "policy" {
     template     = "${file("policy.json")}"
     vars {
-        bucket  = "${var.domain}-${var.env}"
+        bucket  = "${var.basename}-${var.env}"
     }
 }
 
