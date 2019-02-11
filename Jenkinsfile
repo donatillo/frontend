@@ -10,7 +10,6 @@ pipeline {
 
     stages {
 
-        /*
         stage('Install NPM') {
             agent { docker 'node:8-alpine' }
             steps {
@@ -31,7 +30,6 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        */
 
         stage('Plan infrastructure') {
             agent { label 'master' }
@@ -60,16 +58,14 @@ pipeline {
             }
         }
 
-        /*
         stage('Deploy') {
             agent { label 'master' }
             steps {
                 withAWS(region:'us-east-1', credentials:'aws') {
-                    s3Upload(file: 'build', bucket: "${env.MY_DOMAIN}-${env.BRANCH_NAME}")
+                    s3Upload(file: 'build', bucket: "${env.BASENAME}-${env.BRANCH_NAME}")
                 }
             }
         }
-        */
 
     }
 }
