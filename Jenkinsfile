@@ -33,7 +33,6 @@ pipeline {
         }
         */
 
-        /*
         stage('Plan infrastructure') {
             agent { label 'master' }
             steps {
@@ -54,6 +53,7 @@ pipeline {
             }
         }
 
+        /*
         stage('Apply infrastrcuture') {
             agent { label 'master' }
             steps {

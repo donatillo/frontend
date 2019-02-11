@@ -14,6 +14,11 @@ resource "aws_s3_bucket" "frontend" {
         index_document = "index.html"
         error_document = "index.html"
     }
+
+    tags {
+        Name        = "Bucket for frontend static content"
+        Creator     = "frontend"
+    }
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
