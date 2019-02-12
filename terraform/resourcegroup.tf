@@ -1,6 +1,6 @@
 resource "aws_resourcegroups_group" "resg-frontend" {
     name = "frontend-${var.env}"
-    description = "Resources built for the frontend = ${var.env}"
+    description = "Resources built for the frontend - ${var.env}"
     
     resource_query {
     query = <<JSON
