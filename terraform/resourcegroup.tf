@@ -1,6 +1,6 @@
 resource "aws_resourcegroups_group" "resg-frontend" {
-    name = "frontend"
-    description = "Resources built for the frontend."
+    name = "frontend-${var.env}"
+    description = "Resources built for the frontend - ${var.env}"
     
     resource_query {
     query = <<JSON
@@ -10,7 +10,11 @@ resource "aws_resourcegroups_group" "resg-frontend" {
     {
       "Key": "Creator",
       "Values": ["frontend"]
-    }
+    },
+    {
+      "Key": "Environment",
+      "Values": ["${var.env}"]
+    },
   ]
 }
 JSON
