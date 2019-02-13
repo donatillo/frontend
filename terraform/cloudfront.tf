@@ -2,6 +2,11 @@ locals {
   s3_origin_id = "myS3Origin"
 }
 
+data "aws_acm_certificate" "cert" {
+    domain   = "*.${var.domain}"
+    statuses = ["ISSUED"]
+}
+
 resource "aws_cloudfront_distribution" "frontend_cf" {
     origin {
         domain_name         = "${var.basename}-${var.env}.s3.amazonaws.com"
