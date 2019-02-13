@@ -14,7 +14,7 @@ resource "aws_resourcegroups_group" "resg-frontend" {
     {
       "Key": "Environment",
       "Values": ["${var.env}"]
-    },
+    }
   ]
 }
 JSON
