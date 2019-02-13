@@ -1,2 +1,2 @@
-- automatically get new commits
-- push to production
+- don't publish if there are no changes
+- call backend
