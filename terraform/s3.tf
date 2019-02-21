@@ -20,6 +20,8 @@ resource "aws_s3_bucket" "frontend" {
         Creator     = "frontend"
         Environment = "${var.env}"
     }
+
+    force_destroy = true
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
