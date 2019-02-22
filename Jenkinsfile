@@ -49,12 +49,14 @@ pipeline {
         stage('Apply infrastrcuture') {
             agent { label 'master' }
             steps {
-                if (env.BRANCH_NAME == "master") {
-                    timeout(time: 10, unit: 'MINUTES') {
-                        input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
+                script {
+                    if (env.BRANCH_NAME == "master") {
+                        timeout(time: 10, unit: 'MINUTES') {
+                            input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
+                        }
                     }
+                    sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
                 }
-                sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
             }
         }
 
