@@ -18,7 +18,7 @@ pipeline {
                         sh """
                             cd terraform 
                             terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=give-and-take-terraform-${BRANCH_NAME}'
-                            terraform plan -no-color -out=tfplan -var 'env=${env.BRANCH_NAME}' -var 'access_key=$USER' -var 'secret_key=$PASS' -var 'domain=${env.MY_DOMAIN}' -var 'subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}'
+                            terraform plan -no-color -out=tfplan -var 'env=${env.BRANCH_NAME}' -var 'access_key=$USER' -var 'secret_key=$PASS' -var 'main_domain=${env.MY_MAIN_DOMAIN}' -var 'domain=${env.MY_DOMAIN}' -var 'subdomain=${BRANCH_NAME == 'master' ? 'www' : BRANCH_NAME}'
                         """
                     }
                 }
