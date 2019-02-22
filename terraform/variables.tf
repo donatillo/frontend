@@ -1,9 +1,10 @@
-variable "access_key" {}
-variable "secret_key" {}
-variable "basename"   {}
-variable "env"        {}
-variable "domain"     {}
-variable "subdomain"  {}
+variable "access_key"  {}
+variable "secret_key"  {}
+variable "basename"    {}
+variable "env"         {}
+variable "main_domain" {}
+variable "domain"      {}
+variable "subdomain"   {}
 
 variable "region" {
     default = "us-east-1"
