@@ -2,6 +2,10 @@ locals {
   s3_origin_id = "myS3Origin"
 }
 
+data "aws_acm_certificate" "cert" {
+    domain_name         = "*.${var.domain}"
+}
+
 resource "aws_cloudfront_distribution" "frontend_cf" {
     origin {
         domain_name         = "${var.domain}-${var.env}.s3.amazonaws.com"
@@ -45,7 +49,7 @@ resource "aws_cloudfront_distribution" "frontend_cf" {
     }
 
     viewer_certificate {
-        acm_certificate_arn     = "${aws_acm_certificate.cert.arn}"
+        acm_certificate_arn     = "${data.aws_acm_certificate.cert.arn}"
         ssl_support_method      = "sni-only"
     }
 
