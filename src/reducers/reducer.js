@@ -4,8 +4,15 @@ const initialState = Map({
     token: null, 
 });
 
-function reducer(state = initialState, action) {
+function rootReducer(state = initialState, action) {
+    if (action.type === 'USER_LOGGED_IN') {
+        console.log('Login received.');
+        // TODO - everything else
+        return Object.assign({}, state, {
+            token: action.token
+        });
+    }
     return state;
 }
 
-export default reducer;
+export default rootReducer;

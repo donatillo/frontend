@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { userLogin } from '../actions/token'
 // import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
-import { user_login } from '../actions/token'
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userLogin: token => dispatch(userLogin(token))
+  }
+}
 
 class Login extends Component {
 
@@ -10,8 +17,9 @@ class Login extends Component {
   }
 
   loginSuccess = (e) => {
-    // TODO - login
-    console.log(e); // TODO - deal with error
+    console.log('Successful login!');
+    console.log(e);
+    this.props.userLogin(e.tokenId);
   }
 
   render() {
@@ -24,4 +32,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
