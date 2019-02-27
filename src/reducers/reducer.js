@@ -11,6 +11,7 @@ function rootReducer(state = initialState, action) {
         return Object.assign({}, state, {
             token: action.token
         });
+    } else if (action.type === 'ENTERED_WITHOUT_LOGIN') {
     }
     return state;
 }

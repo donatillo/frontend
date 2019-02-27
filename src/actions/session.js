@@ -4,3 +4,9 @@ export function userLogin(token) {
         token: token,
     };
 }
+
+export function enterWithoutLogin() {
+    return {
+        type: 'ENTERED_WITHOUT_LOGIN',
+    };
+}
