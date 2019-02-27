@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Login from './Login';
+import LoginScreen from './LoginScreen';
 import Main from './Main';
 
 const mapStateToProps = state => {
@@ -13,7 +13,7 @@ class App extends Component {
     if (this.props.token != null)
       return <Main />;
     else
-      return <Login />;
+      return <LoginScreen />;
   }
 }
 
