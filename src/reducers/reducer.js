@@ -14,7 +14,18 @@ const initialState = fromJS({
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case 'USER_LOGGED_IN':
-            // TODO - get data from API
+            // get data from API
+            fetch(process.env.REACT_APP_BACKEND_URL + "/authenticate", {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({ token: action.token })
+            })
+                .then((response) => {
+                    console.log(response.status());
+                })
+                .catch(() => console.log("error"));
+
             // TODO - save in local storage
             return state.set('session', {
                 token: action.token,
