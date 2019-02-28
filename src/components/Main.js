@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import InfoBox from './InfoBox';
 
-class Main extends Component {
-  render() {
-    return <div>Logged in!</div>;
-  }
+export default function Main(props) {
+    return <InfoBox />;
 }
-
-export default Main;

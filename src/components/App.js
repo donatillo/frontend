@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import LoginScreen from './LoginScreen';
 import Main from './Main';
 
 const mapStateToProps = state => {
-  return { token: state.token };
+    return { session: state.get('session') };
 }
 
 class App extends Component {
-  render() {
-    if (this.props.token != null)
-      return <Main />;
-    else
-      return <LoginScreen />;
-  }
-}
-
-App.propTypes = {
-  token: PropTypes.string
+    render() {
+        if (this.props.session.userCode != null)
+            return <Main />;
+        else
+            return <LoginScreen />;
+    }
 }
 
 export default connect(mapStateToProps)(App);
